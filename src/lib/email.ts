@@ -1,6 +1,13 @@
 import { Resend } from "resend";
 
-export const resend = new Resend(process.env.RESEND_API_KEY);
+let _resend: Resend | null = null;
+
+function getResend(): Resend {
+  if (!_resend) {
+    _resend = new Resend(process.env.RESEND_API_KEY);
+  }
+  return _resend;
+}
 
 const FROM = process.env.RESEND_FROM_EMAIL || "The Roselyn Method <hello@roselynmethod.com>";
 
@@ -67,7 +74,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
       As a welcome gift, download your free <strong>Newborn Sleep Checklist</strong> from your dashboard.
     </p>
   `;
-  return resend.emails.send({ from: FROM, to, subject: "Welcome to The Roselyn Method 🌸", html: brandedTemplate(content) });
+  return getResend().emails.send({ from: FROM, to, subject: "Welcome to The Roselyn Method 🌸", html: brandedTemplate(content) });
 }
 
 export async function sendPurchaseConfirmationEmail(
@@ -98,7 +105,7 @@ export async function sendPurchaseConfirmationEmail(
       You can also access all your purchases anytime from your <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" style="color:#D7B0A3;">dashboard</a>.
     </p>
   `;
-  return resend.emails.send({ from: FROM, to, subject: `Your ${productName} is ready to download!`, html: brandedTemplate(content) });
+  return getResend().emails.send({ from: FROM, to, subject: `Your ${productName} is ready to download!`, html: brandedTemplate(content) });
 }
 
 export async function sendBookingConfirmationEmail(
@@ -130,7 +137,7 @@ export async function sendBookingConfirmationEmail(
       </a>
     </div>
   `;
-  return resend.emails.send({ from: FROM, to, subject: `Consultation Confirmed — ${dateStr}`, html: brandedTemplate(content) });
+  return getResend().emails.send({ from: FROM, to, subject: `Consultation Confirmed — ${dateStr}`, html: brandedTemplate(content) });
 }
 
 export async function sendNewsletterWelcome(to: string, name?: string) {
@@ -151,5 +158,5 @@ export async function sendNewsletterWelcome(to: string, name?: string) {
     </div>
     <p style="color:#6B7280;font-size:13px;">Expect weekly tips, expert insights, and exclusive offers — delivered straight to your inbox.</p>
   `;
-  return resend.emails.send({ from: FROM, to, subject: "Your Free Newborn Sleep Checklist is here! 🌙", html: brandedTemplate(content) });
+  return getResend().emails.send({ from: FROM, to, subject: "Your Free Newborn Sleep Checklist is here! 🌙", html: brandedTemplate(content) });
 }
