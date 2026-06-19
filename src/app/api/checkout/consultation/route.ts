@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { stripe, CONSULTATION_PRICES } from "@/lib/stripe";
+import { getStripe, CONSULTATION_PRICES } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
 
 const schema = z.object({
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     const typeConfig = CONSULTATION_PRICES[consultationType];
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: consultationType === "ONGOING_SUPPORT" ? "subscription" : "payment",
       payment_method_types: ["card"],
       line_items: [
