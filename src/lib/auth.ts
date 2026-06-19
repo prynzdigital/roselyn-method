@@ -8,13 +8,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db),
   providers: [
     Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
     }),
-    Resend({
-      apiKey: process.env.RESEND_API_KEY!,
-      from: process.env.RESEND_FROM_EMAIL || "hello@roselynmethod.com",
-    }),
+    ...(process.env.RESEND_API_KEY
+      ? [
+          Resend({
+            apiKey: process.env.RESEND_API_KEY,
+            from: process.env.RESEND_FROM_EMAIL || "hello@roselynmethod.com",
+          }),
+        ]
+      : []),
   ],
   session: {
     strategy: "database",
