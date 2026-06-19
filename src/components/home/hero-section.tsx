@@ -51,27 +51,6 @@ export function HeroSection() {
               </span>
             </motion.div>
 
-            {/* Logo on hero */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="flex items-center gap-4 mb-8"
-            >
-              <Image
-                src="/logo.jpeg"
-                alt="The Roselyn Method"
-                width={72}
-                height={72}
-                className="rounded-full border-2 border-secondary/40 shadow-2xl"
-              />
-              <div>
-                <p className="font-inter text-xs text-secondary uppercase tracking-widest">
-                  The Roselyn Method
-                </p>
-              </div>
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
