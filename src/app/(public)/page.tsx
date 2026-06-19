@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
 import { HeroSection } from "@/components/home/hero-section";
 import { HowItWorksSection } from "@/components/home/how-it-works";
 import { FeaturedProductsSection } from "@/components/home/featured-products";
@@ -19,20 +17,16 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <>
-      <Navbar />
-      <main className="overflow-x-hidden flex-1">
-        <HeroSection />
-        <HowItWorksSection />
-        <FeaturedProductsSection />
-        <ExpertsSection />
-        <TestimonialsSection />
-        <RecommendedSection />
-        <BlogPreviewSection />
-        <NewsletterSection />
-        <FAQSection />
-      </main>
-      <Footer />
-    </>
+    <div className="overflow-x-hidden">
+      <HeroSection />
+      <HowItWorksSection />
+      <FeaturedProductsSection />
+      <ExpertsSection />
+      <TestimonialsSection />
+      <RecommendedSection />
+      <BlogPreviewSection />
+      <NewsletterSection />
+      <FAQSection />
+    </div>
   );
 }
